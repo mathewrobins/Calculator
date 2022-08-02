@@ -1,0 +1,75 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.display{
+    border: 2px solid black;
+    /* border-color: black; */
+    text-align: right;
+    background-color: lightyellow;
+    width: 244x;
+    font-size: 32px;
+    display: block;
+    padding: 8px;
+    margin-bottom: 12 px;
+
+}
+
+.buttons{
+    display:flex; 
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+    align-items: center;
+    width: 260px;
+    
+}
+
+
+
+button{
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 16px;
+    text-align:center;
+    background-color: yellow;
+    
+}
+
+.digits{
+    /* display:flex; */
+    width: 100 px;
+    /* flex-wrap: wrap; */
+    background-color:  lightblue;
+    
+}
+
+.operators button{
+    background-color: orange;
+    display:block;
+}
+
+.container{
+    display: block;
+    height: 200 px;
+    width:  200 px;
+    margin: 5 px;
+
+    background-color: lightgreen;
+}
+
+
+
+.operator {
+    background-color:  rgb(241, 210, 152);
+}
+
+
+
+#equal{
+    width: 124px;
+}
