@@ -2,6 +2,7 @@ const currentDisplay = document.querySelector('.display');
 let hasDecPlace = 0;
 let display = "0";
 let previousNumber = null;
+let currentNumber = 0;
 let operator = "equal"
 let operatorPressed = false;
 
@@ -29,36 +30,39 @@ function update(key){
     else {
         switch(key){
             case "addition":
-                operator = "add";
+                
                 if (!checkIfFirstNumber(previousNumber)){
-                    console.log(previousNumber, display, operator);
-                    operate(previousNumber, parseFloat(display), operator)
+                    console.log(previousNumber, currentNumber, operator);
+                    display = operate(previousNumber, currentNumber, operator);
                     
                 }
-                
+                operator = "add";
                 console.log("you want to add")
             break;
             case "subtraction":
-                operator = "subtract";
+                
                 if (!checkIfFirstNumber(previousNumber)){
-                    console.log(previousNumber, display, operator);
-                    operate(previousNumber, parseFloat(display), operator);
+                    console.log(previousNumber, currentNumber, operator);
+                    display = operate(previousNumber, currentNumber, operator);
                 }
+                operator = "subtract";
                 console.log("you want to subtract");
             break;
             case "multiplication":
-                operator = "multiply";
+                
                 if (!checkIfFirstNumber(previousNumber)){
-                    console.log(previousNumber, display, operator);
-                    operate(previousNumber, parseFloat(display), operator);
+                    console.log(previousNumber, currentNumber, operator);
+                    display = operate(previousNumber, currentNumber, operator);
                 }
+                operator = "multiply";
             break;
             case "division":
-                operator = "divide";
+                
                 if (!checkIfFirstNumber(previousNumber)){
-                    console.log(previousNumber, display, operator);
-                    operate(previousNumber, parseFloat(display), operator);
+                    console.log(previousNumber, currentNumber, operator);
+                    display = operate(previousNumber, currentNumber, operator);
                 }
+                operator = "divide";
             break;
             case "clear":
                 clear();
@@ -72,19 +76,22 @@ function update(key){
                 // display = editedDisplay;
                     console.log("the value of display is " + display);
                 }
+                currentNumber = parseFloat(display);
             break;
             case "plusMinus":
                 changeSign = -parseFloat(display);
                 console.log(changeSign);
                 display = changeSign.toString();
                 currentDisplay.textContent = display;
+                currentNumber = parseFloat(display)
             break;
             case "equal":
                 
                 if (!checkIfFirstNumber(previousNumber)){
-                    console.log(previousNumber, display, operator);
-                    operate(previousNumber, parseFloat(display), operator)
+                    console.log(previousNumber, currentNumber, operator);
+                    display = operate(previousNumber, currentNumber, operator)
                 }
+                operator = "equal"
             break;
             case "period":
                 if (!display.includes(".")){
@@ -94,22 +101,25 @@ function update(key){
 
         }
         currentDisplay.textContent = display;
-        console.log("The " + key + "operator was pressed")
+        
     }
 
 }
 
 function updateDisplay(numberKey){
-    if (display == "0" || operatorPressed){
+
+    if (operatorPressed){
         display = numberKey;
         operatorPressed = false;
       
     } else if (display.length<12){
        
         display = display + numberKey;
+        display = parseFloat(display).toString()
     }
 
     currentDisplay.textContent = display;
+    currentNumber = parseFloat(display);
 
 }
 
@@ -117,25 +127,32 @@ function operate(number1, number2, operator){
     operatorPressed = true;
     switch(operator){
         case "add":
-            display = number1 + number2;
+            solution = number1 + number2;
         break;
         case "subtract":
-            display = (100*number1 - 100*number2)/100;
+            solution = (100*number1 - 100*number2)/100;
         break;
         case "multiply":
-            display = number1 * number2;
+            solution = number1 * number2;
         break;
         case "divide":
             if (number2 == 0){
                 currentDisplay.textContent = "/0 Really?";
                 return;
             } else {
-                display = number1 / number2;
+                solution = number1 / number2;
             }      
         break;
+        case "equal":
+            if (number2 == null) return number1;
+        break;
     }
-    previousNumber = display;
-    currentDisplay.textContent = display;
+    previousNumber = solution;
+    currentNumber = null;
+    
+    currentDisplay.textContent = solution.toString();
+    
+    return solution.toString();
 }
 
 function checkIfFirstNumber(number){
